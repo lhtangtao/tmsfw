@@ -9,6 +9,9 @@
 #my_website=http://www.lhtangtao.com
 #Description=小区页面
 """
+import urllib2
+
+from bs4 import BeautifulSoup
 
 
 def get_village_page_num(url):
