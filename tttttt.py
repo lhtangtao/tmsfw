@@ -41,21 +41,31 @@ def get_village_info(url):
     tbody = soup.find(name="tbody")
     for tr in tbody.find_all(name="tr"):
         td = tr.find_all(name="td")[0]
-        td = td.contents[1].string
-        # house_info_list.append(td)
+        building = td.contents[1].string  # 楼栋号
         # for div in tr.find_all(name="div"): # 这里 第一个div是房号，第二个div是建筑面积 第三个div是套内建筑面积，第四个是得房率 第五个是毛坯单价 第六个是装修家 第七个是总价 第八个是操作状态
-        #     print div
-        div1=tr.find_all(name="div")[0] # 第一个div是房号
+        div1 = tr.find_all(name="div")[0]  # 第一个div是房号
         div1 = div1.contents[0].string
         div2 = tr.find_all(name="div")[1]  # 第二个div是建筑面积
         span_area = ""
         for span in div2.find_all(name="span"):
-            span =(span["class"])
+            span = (span["class"])
             span = to_num(span[0])
             span_area = span_area + span
-
-            print("???????????????????????????")
-        print(span_area)
+        # print(span_area)  # 建筑面积
+        div3 = tr.find_all(name="div")[2]  # 第二个div是建筑面积
+        span_inner_area = ""
+        for span in div3.find_all(name="span"):
+            span = (span["class"])
+            span = to_num(span[0])
+            span_inner_area = span_inner_area + span
+        # print(span_inner_area) # 套内面积
+        div4 = tr.find_all(name="div")[3]  # 第二个div是建筑面积
+        span_housing_rate = ""
+        for span in div4.find_all(name="span"):
+            span = (span["class"])
+            span = to_num(span[0])
+            span_housing_rate = span_housing_rate + span
+        print(span_housing_rate)  # 得房率
         print("++++++++++++++++++++++++++++++++++++")
 
     # for title in soup.find_all(name='tr'):
