@@ -13,20 +13,8 @@ import urllib2
 
 from bs4 import BeautifulSoup
 
-
-def get_village_href(url):
-    """
-    :param url:输入url，随后获取这个页面的所有一房一价页面的url信息
-    :return:list url信息
-    """
-    village_id_list = []
-    headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}
-    req = urllib2.Request(url, headers=headers)
-    page = urllib2.urlopen(req)
-    soup = BeautifulSoup(page, "html.parser")
-    for title in soup.find_all('div', class_="build_txt2"):
-        village_id_list.append("http://www.tmsf.com" + str(title.contents[1]["href"]).replace("dynamic", "price"))
-    return village_id_list
+from infos import Info
+from tools import to_num
 
 
 def get_village_page_num(url):
@@ -43,7 +31,43 @@ def get_village_page_num(url):
     return int(title[0].contents[1].string.split("/")[1].split()[0])
 
 
+def get_village_info(url):
+    house_info_list = []
+    house_info = Info()
+    headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}
+    req = urllib2.Request(url, headers=headers)
+    page = urllib2.urlopen(req)
+    soup = BeautifulSoup(page, "html.parser")
+    tbody = soup.find(name="tbody")
+    for tr in tbody.find_all(name="tr"):
+        td = tr.find_all(name="td")[0]
+        td = td.contents[1].string
+        # house_info_list.append(td)
+        # for div in tr.find_all(name="div"): # 这里 第一个div是房号，第二个div是建筑面积 第三个div是套内建筑面积，第四个是得房率 第五个是毛坯单价 第六个是装修家 第七个是总价 第八个是操作状态
+        #     print div
+        div1=tr.find_all(name="div")[0] # 第一个div是房号
+        div1 = div1.contents[0].string
+        div2 = tr.find_all(name="div")[1]  # 第二个div是建筑面积
+        span_area = ""
+        for span in div2.find_all(name="span"):
+            span =(span["class"])
+            span = to_num(span[0])
+            span_area = span_area + span
+
+            print("???????????????????????????")
+        print(span_area)
+        print("++++++++++++++++++++++++++++++++++++")
+
+    # for title in soup.find_all(name='tr'):
+    #     print title
+    #     print("++++++++++++++++++++++++++++++++++++++")
+    #     # for tr in title.find_all("tr", class_="adTr"):
+    #     #     print tr
+    #     #     print("++++++++++++++++++++++++++++++++++++++")
+    return house_info_list
+
+
 if __name__ == '__main__':
     # get_page_num()
-    print get_village_page_num(
-        "http://www.tmsf.com/newhouse/property_33_511129767_price.htm?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=1")
+    print get_village_info(
+        "http://www.tmsf.com/newhouse/property_33_511129767_price.htm?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=8")
