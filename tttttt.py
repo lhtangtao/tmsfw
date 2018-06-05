@@ -80,4 +80,4 @@ def get_village_info(url):
 if __name__ == '__main__':
     # get_page_num()
     print get_village_info(
-        "http://www.tmsf.com/newhouse/property_33_511129767_price.htm?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=8")
+        "http://www.tmsf.com/newhouse/property_33_375419827_price.htm?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=3")
