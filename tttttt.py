@@ -44,6 +44,8 @@ def get_village_info(url):
         house_info_list = []
         td = tr.find_all(name="td")[0]
         building = td.contents[1].string  # 楼栋号
+        url_dest = tr.find_all(class_="adTr")[1].find("a")["href"]
+        url_dest = "http://www.tmsf.com/" + url_dest  # 每个房产的具体链接地址
         room_number = tr.find_all(name="div")[0]  # 第一个div是房号
         room_number = room_number.contents[0].string
         div2 = tr.find_all(name="div")[1]
@@ -84,6 +86,8 @@ def get_village_info(url):
             total_price = total_price + span
         div8 = tr.find_all(name="div")[7]
         operation = div8.contents[0].string  # 操作 是否可以出手
+        house_info_list.append(village_name)
+        house_info_list.append(other_name)
         house_info_list.append(building)
         house_info_list.append(room_number)
         house_info_list.append(span_area)
@@ -93,6 +97,7 @@ def get_village_info(url):
         house_info_list.append(decoration_price)
         house_info_list.append(total_price)
         house_info_list.append(operation)
+        house_info_list.append(url_dest)
         house_info_list_all.append(house_info_list)
         print("++++++++++++++++++++++++++++++++++++")
     return house_info_list_all
