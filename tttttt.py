@@ -37,6 +37,8 @@ def get_village_info(url):
     req = urllib2.Request(url, headers=headers)
     page = urllib2.urlopen(req)
     soup = BeautifulSoup(page, "html.parser")
+    village_name = soup.find(class_='buidname colordg').contents[0].string.split()[0]  # 获取小区的名字
+    other_name = soup.find(class_="extension famwei ft14 mgr10").find(class_="color-33").contents[0].string  # 获取小区推广名
     tbody = soup.find(name="tbody")
     for tr in tbody.find_all(name="tr"):
         house_info_list = []
