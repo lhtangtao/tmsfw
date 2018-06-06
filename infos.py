@@ -53,3 +53,16 @@ class Info(object):
 
     def set_operation(self, operation):
         self.operation = operation
+    def get_all(self):
+        info_list=[]
+        info_list.append(self.building)
+        info_list.append(self.room_number)
+        info_list.append(self.covered_area)
+        info_list.append(self.inner_area)
+        info_list.append(self.housing_rate)
+        info_list.append(self.billet_unit_price)
+        info_list.append(self.decoration_price)
+        info_list.append(self.total_price)
+        info_list.append(self.operation)
+        return info_list
+
