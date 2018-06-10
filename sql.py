@@ -43,17 +43,66 @@ def create_table():
     conn = init_db()
     cur = conn.cursor()
     try:
-        sql_script = 'CREATE TABLE new_house' + current_data + ' (Id varchar(30),current_data varchar(30),location varchar(30),village varchar(30),house_type varchar(30),square varchar(30),orientation varchar(30), decorate varchar(30),money varchar(30),per_square VARCHAR (30),url varchar(300),page varchar(30))'
-        cur.execute(sql_script)
-        sql_script = "ALTER TABLE `test`.`houseinfo" + current_data + "` MODIFY COLUMN `Id` int(30) NOT NULL FIRST,MODIFY COLUMN `square` int(30) NULL DEFAULT NULL AFTER `house_type`,MODIFY COLUMN `money` int(30) NULL DEFAULT NULL AFTER `decorate`,MODIFY COLUMN `per_square` int(30) NULL DEFAULT NULL AFTER `money`,MODIFY COLUMN `page` int(30) NULL DEFAULT NULL AFTER `url`,ADD PRIMARY KEY (`Id`);"
+        sql_script = 'CREATE TABLE new_house' + current_data + " (`ID` integer(10) NOT NULL AUTO_INCREMENT COMMENT '唯一主键', `location` varchar(30) CHARACTER SET ascii NOT NULL DEFAULT '' COMMENT '所在行政区域',  `village` varchar(30) NOT NULL DEFAULT '' COMMENT '小区名字', `other_name` varchar(30) NULL DEFAULT '' COMMENT '小区别名',`building` varchar(30) NULL DEFAULT '' COMMENT '楼栋', `room` varchar(30) NULL COMMENT '房号',`area` double NULL COMMENT '建筑面积', `inner_area` double NULL COMMENT '套内面积',`rate` double NULL COMMENT '得房率',  `billet_unit_price` double NULL COMMENT '毛坯单价',  `decoration_price` double NULL COMMENT '装修价',  `total_price` double NULL COMMENT '总价',  `operation` varchar(30) NULL COMMENT '操作', `url_address` varchar(100) NULL COMMENT '具体链接',  PRIMARY KEY (`ID`)) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;"
         cur.execute(sql_script)
         x = True
     except Exception as e:
         x = False
-        print e
-        sql_script = "truncate table houseinfo" + current_data
+        sql_script = "truncate table new_house" + current_data
         cur.execute(sql_script)
     cur.close()
     conn.commit()
     conn.close()
     return x
+
+
+def insert_info(kind, value):
+    """
+    要插入的数据列名和数值
+    :param kind:
+    :param value:
+    :return:
+    """
+    conn = init_db()
+    cur = conn.cursor()
+    try:
+        sql_script0 = "INSERT INTO new_house%s" % current_data
+        sql_script1 = "(%s) VALUES " % kind
+        sql_script2 = "('%s')" % value
+        sql_script = sql_script0 + sql_script1 + sql_script2
+        # print sql_script
+        cur.execute(sql_script)
+        x = True
+    except Exception as e:
+        x = False
+        print e
+    cur.close()
+    conn.commit()
+    conn.close()
+    return x
+
+
+def update_info(kind, value, id_num):
+    conn = init_db()
+    cur = conn.cursor()
+    try:
+        sql_script0 = "UPDATE new_house%s SET" % current_data
+        sql_script1 = " %s =" % kind
+        sql_script2 = "('%s')" % value
+        sql_script3 = "where id='%s'" % id_num
+        sql_script = sql_script0 + sql_script1 + sql_script2 + sql_script3
+        print sql_script
+        cur.execute(sql_script)
+        x = True
+    except Exception as e:
+        x = False
+        print e
+    cur.close()
+    conn.commit()
+    conn.close()
+    return x
+
+
+if __name__ == '__main__':
+    create_table()
+    # insert_info("ID", 1)

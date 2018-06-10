@@ -14,6 +14,7 @@ import urllib2
 from bs4 import BeautifulSoup
 
 from infos import Info
+from sql import insert_info, update_info
 from tools import to_num
 
 
@@ -32,16 +33,17 @@ def get_village_page_num(url):
 
 
 def get_village_info(url):
-    house_info_list_all = []
+    id_num = 1
     headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}
     req = urllib2.Request(url, headers=headers)
     page = urllib2.urlopen(req)
     soup = BeautifulSoup(page, "html.parser")
+    location = soup.find(id_="districtname")
+    print  location
     village_name = soup.find(class_='buidname colordg').contents[0].string.split()[0]  # 获取小区的名字
     other_name = soup.find(class_="extension famwei ft14 mgr10").find(class_="color-33").contents[0].string  # 获取小区推广名
     tbody = soup.find(name="tbody")
     for tr in tbody.find_all(name="tr"):
-        house_info_list = []
         td = tr.find_all(name="td")[0]
         building = td.contents[1].string  # 楼栋号
         url_dest = tr.find_all(class_="adTr")[1].find("a")["href"]
@@ -86,21 +88,21 @@ def get_village_info(url):
             total_price = total_price + span
         div8 = tr.find_all(name="div")[7]
         operation = div8.contents[0].string  # 操作 是否可以出手
-        house_info_list.append(village_name)
-        house_info_list.append(other_name)
-        house_info_list.append(building)
-        house_info_list.append(room_number)
-        house_info_list.append(span_area)
-        house_info_list.append(span_inner_area)
-        house_info_list.append(span_housing_rate)
-        house_info_list.append(billet_unit_price)
-        house_info_list.append(decoration_price)
-        house_info_list.append(total_price)
-        house_info_list.append(operation)
-        house_info_list.append(url_dest)
-        house_info_list_all.append(house_info_list)
-        print("++++++++++++++++++++++++++++++++++++")
-    return house_info_list_all
+        insert_info("ID", id_num)
+        update_info("village", village_name, id_num)
+        update_info("other_name", other_name, id_num)
+        update_info("building", building, id_num)
+        update_info("room", room_number, id_num)
+        update_info("area", span_area, id_num)
+        update_info("inner_area", span_inner_area, id_num)
+        update_info("rate", span_housing_rate, id_num)
+        update_info("billet_unit_price", billet_unit_price, id_num)
+        update_info("decoration_price", decoration_price, id_num)
+        update_info("total_price", total_price, id_num)
+        update_info("operation", operation, id_num)
+        update_info("url_address", url_dest, id_num)
+        id_num = id_num + 1
+    return
 
 
 if __name__ == '__main__':
