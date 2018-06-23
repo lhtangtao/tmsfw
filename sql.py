@@ -91,7 +91,6 @@ def update_info(kind, value, id_num):
         sql_script2 = "('%s')" % value
         sql_script3 = "where id='%s'" % id_num
         sql_script = sql_script0 + sql_script1 + sql_script2 + sql_script3
-        print sql_script
         cur.execute(sql_script)
         x = True
     except Exception as e:
