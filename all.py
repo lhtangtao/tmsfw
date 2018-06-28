@@ -37,9 +37,16 @@ if __name__ == '__main__':
 
         page_house_num = len(every_page_village_url_list)  # 这个页面里的小区数量，一般而言这个数字是6
         for x in range(0, page_house_num):
-            print every_page_village_url_list[x] # 示例 http://www.tmsf.com/newhouse/property_330184_430659766_price.htm
-            village_page_num = int(get_village_page_num(every_page_village_url_list[x]))  # 获取每个小区有多少房产信息的页面
-            url_village1="http://www.tmsf.com/newhouse/property_330181_439549419_price.htm?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page="+ str(x)
-            # for x in range(1,village_page_num):
+            print every_page_village_url_list[x]  # 示例 http://www.tmsf.com/newhouse/property_330184_430659766_price.htm
+            try:
+                village_page_num = int(get_village_page_num(every_page_village_url_list[x]))  # 获取每个小区有多少房产信息的页面
+                for y in range(1, village_page_num + 1):
+                    url_village1 = every_page_village_url_list[
+                                       x] + "?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=" + str(
+                        y)
+                    print url_village1
+
+            except:
+                print u'这个页面不是典型的一房一价页面，它的地址徐亚欧手动获取，地址是：' + every_page_village_url_list[x]
 
         # TODO  对这一维数组进行操作，这个一维数组里的都是
