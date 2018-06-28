@@ -13,10 +13,11 @@ import datetime
 import time
 
 from main_page import get_page_num, get_village_href, get_location
-from sql import create_table
-from village import get_village_page_num
+from sql import create_table, update_info
+from village import get_village_page_num, get_village_info
 
 if __name__ == '__main__':
+    id_num = 1
     create_table()  # 创建一张数据库 把数据往里面写
     new_house_page = int(get_page_num())  # 查看http://www.tmsf.com/newhouse/property_searchall.htm 这个网站 一共有多少页新房。
     # 修改page=
@@ -30,7 +31,7 @@ if __name__ == '__main__':
 
     now_time_end = datetime.datetime.now()  # 现在
     print (now_time_end - now_time_start)  # 计算时间差
-    for i in range(1, 2 + 1):
+    for i in range(1, 1 + 1):
         url = url1 + str(i) + url2
         every_page_village_url_list = get_village_href(url)  # 返回一维数组 里面是每个小区局的一房一价网页地址
         every_village_location_verbose = get_location(url)  # 返回一维数组 里面是每个小区所在的位置
@@ -41,12 +42,15 @@ if __name__ == '__main__':
             try:
                 village_page_num = int(get_village_page_num(every_page_village_url_list[x]))  # 获取每个小区有多少房产信息的页面
                 for y in range(1, village_page_num + 1):
-                    url_village1 = every_page_village_url_list[
-                                       x] + "?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=" + str(
+                    url_village = every_page_village_url_list[
+                                      x] + "?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=" + str(
                         y)
-                    print url_village1
-
+                    # print url_village
+                    update_info("location", every_village_location_verbose, id_num)
+                    id_num = get_village_info(url_village, id_num)  # 一般会写14条数据 id会自增14
+                    print id_num
+                    print "++++++++++++++++"
             except:
                 print u'这个页面不是典型的一房一价页面，它的地址徐亚欧手动获取，地址是：' + every_page_village_url_list[x]
 
-        # TODO  对这一维数组进行操作，这个一维数组里的都是
+        # TODO  主键ID的处理现在还有问题

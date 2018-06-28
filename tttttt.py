@@ -47,7 +47,7 @@ def get_village_info(url):
         td = tr.find_all(name="td")[0]
         building = td.contents[1].string  # 楼栋号
         url_dest = tr.find_all(class_="adTr")[1].find("a")["href"]
-        url_dest = "http://www.tmsf.com/" + url_dest  # 每个房产的具体链接地址
+        url_dest = "http://www.tmsf.com" + url_dest  # 每个房产的具体链接地址
         room_number = tr.find_all(name="div")[0]  # 第一个div是房号
         room_number = room_number.contents[0].string
         div2 = tr.find_all(name="div")[1]
@@ -89,6 +89,20 @@ def get_village_info(url):
         div8 = tr.find_all(name="div")[7]
         operation = div8.contents[0].string  # 操作 是否可以出手
         insert_info("ID", id_num)
+        print village_name
+        print other_name
+        print building
+        print room_number
+        print span_area
+        print span_inner_area
+        print span_housing_rate
+        print billet_unit_price
+        print decoration_price
+        if total_price == "":
+            print "1111111"
+        print total_price
+        print operation
+        print url_dest
         update_info("village", village_name, id_num)
         update_info("other_name", other_name, id_num)
         update_info("building", building, id_num)
@@ -102,10 +116,10 @@ def get_village_info(url):
         update_info("operation", operation, id_num)
         update_info("url_address", url_dest, id_num)
         id_num = id_num + 1
-    return
+    return id_num
 
 
 if __name__ == '__main__':
     # get_page_num()
     print get_village_info(
-        "http://www.tmsf.com/newhouse/property_33_375419827_price.htm?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=3")
+        "http://www.tmsf.com/newhouse/property_330184_367362357_price.htm?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=2")

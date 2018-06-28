@@ -30,8 +30,8 @@ def get_village_page_num(url):
     title = soup.find_all("div", class_='spagenext')
     return int(title[0].contents[1].string.split("/")[1].split()[0])
 
-def get_village_info(url):
-    id_num = 1
+
+def get_village_info(url, id_num=1):
     headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}
     req = urllib2.Request(url, headers=headers)
     page = urllib2.urlopen(req)
@@ -85,20 +85,31 @@ def get_village_info(url):
             span = to_num(span[0])
             total_price = total_price + span
         div8 = tr.find_all(name="div")[7]
-        operation = div8.contents[0].string  # 操作 是否可以出手
+        operation = div8.contents[0].string  # 操作 是否可以出售
         insert_info("ID", id_num)
-        update_info("village", village_name, id_num)
-        update_info("other_name", other_name, id_num)
-        update_info("building", building, id_num)
-        update_info("room", room_number, id_num)
-        update_info("area", span_area, id_num)
-        update_info("inner_area", span_inner_area, id_num)
-        update_info("rate", span_housing_rate, id_num)
-        update_info("billet_unit_price", billet_unit_price, id_num)
-        update_info("decoration_price", decoration_price, id_num)
-        update_info("total_price", total_price, id_num)
-        update_info("operation", operation, id_num)
-        update_info("url_address", url_dest, id_num)
+        if village_name != "":
+            update_info("village", village_name, id_num)
+        if other_name != "":
+            update_info("other_name", other_name, id_num)
+        if building != "":
+            update_info("building", building, id_num)
+        if room_number != "":
+            update_info("room", room_number, id_num)
+        if span_area != "":
+            update_info("area", span_area, id_num)
+        if span_inner_area != "":
+            update_info("inner_area", span_inner_area, id_num)
+        if span_housing_rate != "":
+            update_info("rate", span_housing_rate, id_num)
+        if billet_unit_price != "":
+            update_info("billet_unit_price", billet_unit_price, id_num)
+        if decoration_price != "":
+            update_info("decoration_price", decoration_price, id_num)
+        if total_price != "":
+            update_info("total_price", total_price, id_num)
+        if operation != "":
+            update_info("operation", operation, id_num)
+        if url_dest != "":
+            update_info("url_address", url_dest, id_num)
         id_num = id_num + 1
-    return
-
+    return id_num
