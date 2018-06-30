@@ -54,4 +54,5 @@ if __name__ == '__main__':
         print u'刚刚爬虫完毕的是第' + str(i) + u'页的所有新房信息，他的地址是' + url
         print (now_time_end - now_time_start_page)  # 计算时间差
     now_time_end = datetime.datetime.now()  # 现在
+    print u"爬虫完成，全部耗时如下："
     print (now_time_end - now_time_start)  # 计算时间差
