@@ -28,29 +28,30 @@ if __name__ == '__main__':
     url2 = "&bbs=&avanumorder=&comnumorder="
     # 示例网址：http://www.tmsf.com/newhouse/property_33_514158189_price.htm
     now_time_start = datetime.datetime.now()  # 现在
-
-    now_time_end = datetime.datetime.now()  # 现在
-    print (now_time_end - now_time_start)  # 计算时间差
-    for i in range(1, 1 + 1):
+    for i in range(1, new_house_page + 1):
+        now_time_start_page = datetime.datetime.now()  # 现在
         url = url1 + str(i) + url2
         every_page_village_url_list = get_village_href(url)  # 返回一维数组 里面是每个小区局的一房一价网页地址
         every_village_location_verbose = get_location(url)  # 返回一维数组 里面是每个小区所在的位置
-
         page_house_num = len(every_page_village_url_list)  # 这个页面里的小区数量，一般而言这个数字是6
         for x in range(0, page_house_num):
-            print every_page_village_url_list[x]  # 示例 http://www.tmsf.com/newhouse/property_330184_430659766_price.htm
+            now_time_start_village = datetime.datetime.now()  # 现在
+            # print every_page_village_url_list[x]  # 示例 http://www.tmsf.com/newhouse/property_330184_430659766_price.htm
             try:
                 village_page_num = int(get_village_page_num(every_page_village_url_list[x]))  # 获取每个小区有多少房产信息的页面
                 for y in range(1, village_page_num + 1):
                     url_village = every_page_village_url_list[
                                       x] + "?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=" + str(
                         y)
-                    # print url_village
-                    update_info("location", every_village_location_verbose, id_num)
-                    id_num = get_village_info(url_village, id_num)  # 一般会写14条数据 id会自增14
-                    print id_num
-                    print "++++++++++++++++"
+                    id_num = get_village_info(url_village, id_num,
+                                              every_village_location_verbose[x])  # 一般会写14条数据 id会自增14
             except:
-                print u'这个页面不是典型的一房一价页面，它的地址徐亚欧手动获取，地址是：' + every_page_village_url_list[x]
-
-        # TODO  主键ID的处理现在还有问题
+                print u'这个页面不是典型的一房一价页面，它的地址需要手动获取，地址是：' + every_page_village_url_list[x]
+            now_time_end_village = datetime.datetime.now()  # 现在
+            print u'刚刚爬虫完毕的小区地址是：' + every_page_village_url_list[x]
+            print now_time_end_village - now_time_start_village
+        now_time_end = datetime.datetime.now()  # 现在
+        print u'刚刚爬虫完毕的是第' + str(i) + u'页的所有新房信息，他的地址是' + url
+        print (now_time_end - now_time_start_page)  # 计算时间差
+    now_time_end = datetime.datetime.now()  # 现在
+    print (now_time_end - now_time_start)  # 计算时间差

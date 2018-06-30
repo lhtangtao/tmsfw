@@ -31,13 +31,13 @@ def get_village_page_num(url):
     return int(title[0].contents[1].string.split("/")[1].split()[0])
 
 
-def get_village_info(url, id_num=1):
+def get_village_info(url, id_num=1,location_squer= ""):
     headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}
     req = urllib2.Request(url, headers=headers)
     page = urllib2.urlopen(req)
     soup = BeautifulSoup(page, "html.parser")
     location = soup.find(id_="districtname")
-    print  location
+    # print  location
     village_name = soup.find(class_='buidname colordg').contents[0].string.split()[0]  # 获取小区的名字
     other_name = soup.find(class_="extension famwei ft14 mgr10").find(class_="color-33").contents[0].string  # 获取小区推广名
     tbody = soup.find(name="tbody")
@@ -111,5 +111,7 @@ def get_village_info(url, id_num=1):
             update_info("operation", operation, id_num)
         if url_dest != "":
             update_info("url_address", url_dest, id_num)
+        if location_squer != "":
+            update_info("location", location_squer, id_num)
         id_num = id_num + 1
     return id_num
