@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/../lianjia/.idea/lianjia.iml" filepath="$PROJECT_DIR$/../lianjia/.idea/lianjia.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/tmsfw.iml" filepath="$PROJECT_DIR$/.idea/tmsfw.iml" />
     </modules>
   </component>
