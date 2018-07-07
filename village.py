@@ -45,7 +45,7 @@ def get_village_info(url, id_num=1, location_squer="", administrative=""):
         td = tr.find_all(name="td")[0]
         building = td.contents[1].string  # 楼栋号
         url_dest = tr.find_all(class_="adTr")[1].find("a")["href"]
-        url_dest = "http://www.tmsf.com/" + url_dest  # 每个房产的具体链接地址
+        url_dest = "http://www.tmsf.com" + url_dest  # 每个房产的具体链接地址
         room_number = tr.find_all(name="div")[0]  # 第一个div是房号
         room_number = room_number.contents[0].string
         div2 = tr.find_all(name="div")[1]
