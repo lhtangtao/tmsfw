@@ -113,7 +113,7 @@ def get_village_info(url, id_num=1, location_squer="", administrative=""):
             update_info("url_address", url_dest, id_num)
         if location_squer != "":
             update_info("location", location_squer, id_num)
-        # if administrative != "":
-        #     update_info("administrative",administrative,id_num)
+        if administrative != "":
+            update_info("administrative",administrative,id_num)
         id_num = id_num + 1
     return id_num

@@ -42,13 +42,13 @@ def get_administrative_location(location_verbose):
         administrative = u"上城"
     elif u"下城" in location_verbose:
         administrative = u"下城"
-    elif (u"之江" or u"西湖") in location_verbose:
+    elif u"之江" in location_verbose or u"西湖" in location_verbose:
         administrative = u"西湖"
-    elif (u"东湖街道" or u"中泰街道" or u"临平街道" or u"乔司街道" or u"五常街道" or u"仁和街道" or u"仓前街道" or u"余杭经济开发区" or u"余杭街道 " or u"南苑街道" or u"塘栖镇" or u"崇贤街道" or u"径山镇" or u"星桥街道" or u"瓶窑镇" or u"良渚街道" or u"运河街道" or u'钱江经济开发区' or u"闲林街道" or u"鸬鸟镇" )in location_verbose:
+    elif u"东湖街道" in location_verbose or u"中泰街道" in location_verbose or u"临平街道" in location_verbose or u"乔司街道" in location_verbose or u"五常街道" in location_verbose or u"仁和街道" in location_verbose or u"仓前街道" in location_verbose or u"余杭经济开发区" in location_verbose or u"余杭街道 " in location_verbose or u"南苑街道" in location_verbose or u"塘栖镇" in location_verbose or u"崇贤街道" in location_verbose or u"径山镇" in location_verbose or u"星桥街道" in location_verbose or u"瓶窑镇" in location_verbose or u"良渚街道" in location_verbose or u"运河街道" in location_verbose or u'钱江经济开发区' in location_verbose or u"闲林街道" in location_verbose or u"鸬鸟镇" in location_verbose:
         administrative = u"余杭"
-    elif (u"下沙" or u"江干") in location_verbose:
+    elif u"下沙" in location_verbose or u"江干" in location_verbose:
         administrative = u"江干"
-    elif (u"临浦街道" or u"义桥镇" or u"义蓬街道" or u'党湾镇' or u"北干街道" or u"城厢街道" or u"宁围街道" or u"所前镇" or u"新塘街道" or u"新湾街道" or u"新街街道" or u"河庄街道" or u"瓜沥镇" or u"萧山区" or u"萧山经济技术开发区" or u"蜀山街道" or u"衙前镇" or u"闻堰街道" or u"靖江街道") in location_verbose:
+    elif u"临浦街道" in location_verbose or u"义桥镇" in location_verbose or u"义蓬街道" in location_verbose or u'党湾镇' in location_verbose or u"北干街道" in location_verbose or u"城厢街道" in location_verbose or u"宁围街道" in location_verbose or u"所前镇" in location_verbose or u"新塘街道" in location_verbose or u"新湾街道" in location_verbose or u"新街街道" in location_verbose or u"河庄街道" in location_verbose or u"瓜沥镇" in location_verbose or u"萧山区" in location_verbose or u"萧山经济技术开发区" in location_verbose or u"蜀山街道" in location_verbose or u"衙前镇" in location_verbose or u"闻堰街道" in location_verbose or u"靖江街道" in location_verbose:
         administrative = u"萧山"
     elif u"拱墅" in location_verbose:
         administrative = u"拱墅"
@@ -58,6 +58,6 @@ def get_administrative_location(location_verbose):
         administrative = u"未知区域"
     return administrative
 
-if __name__ == '__main__':
-    print get_administrative_location(u"[西湖]星桥街道临丁路以北，学堂港以西")
 
+if __name__ == '__main__':
+    print get_administrative_location(u"[]中泰街道，学堂港以西")
