@@ -31,7 +31,7 @@ def get_village_page_num(url):
     return int(title[0].contents[1].string.split("/")[1].split()[0])
 
 
-def get_village_info(url, id_num=1,location_squer= ""):
+def get_village_info(url, id_num=1, location_squer="", administrative=""):
     headers = {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'}
     req = urllib2.Request(url, headers=headers)
     page = urllib2.urlopen(req)
@@ -113,5 +113,7 @@ def get_village_info(url, id_num=1,location_squer= ""):
             update_info("url_address", url_dest, id_num)
         if location_squer != "":
             update_info("location", location_squer, id_num)
+        # if administrative != "":
+        #     update_info("administrative",administrative,id_num)
         id_num = id_num + 1
     return id_num

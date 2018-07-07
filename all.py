@@ -14,6 +14,7 @@ import time
 
 from main_page import get_page_num, get_village_href, get_location
 from sql import create_table, update_info
+from tools import get_administrative_location
 from village import get_village_page_num, get_village_info
 
 if __name__ == '__main__':
@@ -44,9 +45,12 @@ if __name__ == '__main__':
                                       x] + "?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=" + str(
                         y)
                     id_num = get_village_info(url_village, id_num,
-                                              every_village_location_verbose[x])  # 一般会写14条数据 id会自增14
+                                              every_village_location_verbose[x]
+                                              , get_administrative_location(every_village_location_verbose[x]))  # 一般会写14条数据 id会自增14
             except:
+                print "&&&&&&&&&&&&&&&&&"
                 print u'这个页面不是典型的一房一价页面，它的地址需要手动获取，地址是：' + every_page_village_url_list[x]
+                print "&&&&&&&&&&&&&&&&&"
             now_time_end_village = datetime.datetime.now()  # 现在
             print u'刚刚爬虫完毕的小区地址是：' + every_page_village_url_list[x]
             print now_time_end_village - now_time_start_village
