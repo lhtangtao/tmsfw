@@ -117,3 +117,6 @@ def get_village_info(url, id_num=1, location_squer="", administrative=""):
             update_info("administrative",administrative,id_num)
         id_num = id_num + 1
     return id_num
+
+if __name__ == '__main__':
+    print get_village_page_num("http://www.tmsf.com/newhouse/property_330184_1161084349_price.htm")
