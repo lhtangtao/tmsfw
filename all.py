@@ -39,7 +39,7 @@ if __name__ == '__main__':
         page_house_num = len(every_page_village_url_list)  # 这个页面里的小区数量，一般而言这个数字是6
         for x in range(0, page_house_num):
             now_time_start_village = datetime.datetime.now()  # 现在
-            print u"现在开始执行爬虫的小区地址是："+every_page_village_url_list[x]  # 示例 http://www.tmsf.com/newhouse/property_330184_430659766_price.htm
+            print str(now_time_start_village)+u"现在开始执行爬虫的小区地址是："+every_page_village_url_list[x]  # 示例 http://www.tmsf.com/newhouse/property_330184_430659766_price.htm
             try:
                 id_num_source=id_num
                 village_page_num = int(get_village_page_num(every_page_village_url_list[x]))  # 获取每个小区有多少房产信息的页面
@@ -48,16 +48,16 @@ if __name__ == '__main__':
                     url_village = every_page_village_url_list[
                                       x] + "?isopen=&presellid=&buildingid=&area=&allprice=&housestate=&housetype=&page=" + str(
                         y)
-                    print u"现在开始采集该网页的数据："+url_village
+                    print u"现在开始采集该网页的数据："+url_village +u'开始获取信息的id_num = '+str( id_num)
                     id_num = get_village_info(url_village, id_num,
                                               every_village_location_verbose[x]
                                               , get_administrative_location(every_village_location_verbose[x]))  # 一般会写14条数据 id会自增14
-                    # print u"现在跑到了第"+ str(id_num)+u"条数据" +u"该小区的第"+str(y)+u"页"
+                    print u"现在跑到了第"+ str(id_num)+u"条数据" +u"该小区的第"+str(y)+u"页  " +u'结束获取信息的id_num = '+str( id_num)
             except:
                 print u'这个页面不是典型的一房一价页面，它的地址需要手动获取，地址是：' + every_page_village_url_list[x]
             now_time_end_village = datetime.datetime.now()  # 现在
             print u"爬完这个小区耗时为："+str(now_time_end_village - now_time_start_village)
-            print u"现在爬到了 第"+str(id_num)+u"条数据，新增"+str(id_num-id_num_source)
+            print u"现在爬到了 第"+str(id_num)+u"条数据，新增"+str(id_num-id_num_source) + u" 在该小区的第"+str(x) +u"页"
         now_time_end = datetime.datetime.now()  # 现在
         print u'刚刚爬虫完毕的是第' + str(i) + u'页的所有新房信息，他的地址是' + url+u"花费的时间为："+str(now_time_end - now_time_start_page)  # 计算时间差
     now_time_end = datetime.datetime.now()  # 现在
